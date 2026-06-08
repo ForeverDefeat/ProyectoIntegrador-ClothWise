@@ -1,6 +1,7 @@
-# ClothWise - Sistema de Gestion de Inventario
+# ClothWise - Sistema de Gestion de Inventario para tienda de moda
 
-ClothWise es un proyecto universitario orientado a la gestion de inventario y ventas para una tienda de ropa. Este repositorio parte con la estructura inicial del sistema y sera construido por hitos para evidenciar el avance desde una base minima hasta una version funcional.
+ClothWise es un proyecto universitario orientado a la gestion de inventario y ventas para una tienda de ropa. 
+Este repositorio parte con la estructura inicial del sistema y sera construido por hitos para evidenciar el avance desde una base minima hasta una version funcional.
 
 ## Estado Inicial
 
@@ -17,6 +18,7 @@ Este primer commit corresponde a la preparacion del proyecto:
 .
 ├── sistema-inventario/   # Backend Spring Boot
 └── omg-moda-front/       # Frontend React + Vite + TypeScript
+
 ```
 
 ## Stack Tecnico Planeado
@@ -52,14 +54,16 @@ El sistema permitira administrar:
 
 Backend:
 
-```powershell
+```
+powershell
 cd sistema-inventario
 mvnw.cmd spring-boot:run
 ```
 
 Frontend:
 
-```powershell
+```
+powershell
 cd omg-moda-front
 npm install
 npm run dev
