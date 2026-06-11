@@ -1,27 +1,30 @@
-# ClothWise - Sistema de Gestion de Inventario para tienda de moda
+# ClothWise - Sistema de Gestion de Inventario para Tienda de Moda
 
-ClothWise es un proyecto universitario orientado a la gestion de inventario y ventas para una tienda de ropa. 
-Este repositorio parte con la estructura inicial del sistema y sera construido por hitos para evidenciar el avance desde una base minima hasta una version funcional.
+ClothWise es un proyecto universitario orientado a la gestion de inventario, productos y ventas para una tienda de ropa. El repositorio se esta construyendo por hitos para dejar una historia tecnica clara, visible y auditable desde una base inicial hasta una version funcional.
 
-## Estado Inicial
+## Estado Del Proyecto
 
-Este primer commit corresponde a la preparacion del proyecto:
+El proyecto ya cuenta con una base organizada para backend y frontend, junto con una ruta de desarrollo por modulos. Cada avance se registra mediante commits independientes para evidenciar que el sistema evoluciona de forma progresiva.
 
+Hitos alcanzados:
+
+- Repositorio preparado para reconstruccion ordenada del proyecto.
+- Estructura principal separada entre backend y frontend.
 - Backend inicializado con Spring Boot.
 - Frontend inicializado con React, Vite y TypeScript.
-- Repositorio preparado para evolucionar por modulos funcionales.
-- Arquitectura planificada por capas y modulos.
+- README base agregado para documentar el objetivo, stack y ruta de avance.
+- Plan de commits definido para construir el sistema por modulos funcionales.
 
-## Estructura Esperada
+## Estructura Del Proyecto
 
 ```text
 .
-├── sistema-inventario/   # Backend Spring Boot
-└── omg-moda-front/       # Frontend React + Vite + TypeScript
-
+|-- sistema-inventario/   # Backend Spring Boot
+|-- omg-moda-front/       # Frontend React + Vite + TypeScript
+`-- README.md             # Documentacion general del proyecto
 ```
 
-## Stack Tecnico Planeado
+## Stack Tecnico
 
 Backend:
 
@@ -42,46 +45,68 @@ Frontend:
 
 ## Objetivo Del Sistema
 
-El sistema permitira administrar:
+El sistema permitira administrar los procesos principales de una tienda de moda:
 
-- Usuarios y autenticacion.
-- Productos y variantes por talla/color.
-- Movimientos de inventario.
+- Autenticacion de usuarios.
+- Gestion de productos.
+- Gestion de variantes por talla, color y material.
+- Control de movimientos de inventario.
 - Registro de ventas.
-- Consulta de stock y reportes basicos.
+- Consulta de stock.
+- Reportes basicos para seguimiento operativo.
 
-## Comandos Iniciales
+## Modulos Planeados
 
 Backend:
 
-```
-powershell
+1. `shared`: excepciones, respuestas comunes y utilidades.
+2. `usuario`: autenticacion, roles y JWT.
+3. `producto`: productos y variantes.
+4. `inventario`: entradas, ajustes y movimientos de stock.
+5. `venta`: registro, consulta y anulacion de ventas.
+
+Frontend:
+
+1. `auth`: login y sesion.
+2. `layout`: navegacion principal y rutas protegidas.
+3. `dashboard`: resumen operativo.
+4. `catalogo`: productos y variantes.
+5. `inventario`: entradas y ajustes.
+6. `ventas`: punto de venta.
+7. `reportes`: consultas y metricas basicas.
+
+## Comandos De Ejecucion
+
+Backend:
+
+```powershell
 cd sistema-inventario
 mvnw.cmd spring-boot:run
 ```
 
 Frontend:
 
-```
-powershell
+```powershell
 cd omg-moda-front
 npm install
 npm run dev
 ```
 
-## Plan De Avance
+## Ruta De Avance Por Hitos
 
-El desarrollo se organizara en commits por hitos:
+El desarrollo se organiza en commits pequenos y verificables:
 
-1. Inicializacion del backend y frontend.
-2. Configuracion de base de datos y validaciones.
-3. Autenticacion con JWT.
-4. Modulo de productos.
+1. Inicializacion del repositorio, backend y frontend.
+2. Configuracion de base de datos, validaciones y estructura compartida.
+3. Autenticacion con JWT y seguridad por roles.
+4. Modulo de productos y variantes.
 5. Modulo de inventario.
 6. Modulo de ventas.
-7. Integracion frontend-backend.
-8. Documentacion, pruebas y entrega final.
+7. Construccion del frontend por pantallas.
+8. Integracion frontend-backend.
+9. Pruebas funcionales.
+10. Documentacion final de entrega.
 
 ## Nota
 
-Este README representa el punto de partida del proyecto. Las secciones se iran ampliando conforme se agreguen modulos, endpoints, pantallas y pruebas.
+Este README documenta el avance actual del proyecto y se actualizara conforme se completen nuevos modulos, endpoints, pantallas y pruebas.
