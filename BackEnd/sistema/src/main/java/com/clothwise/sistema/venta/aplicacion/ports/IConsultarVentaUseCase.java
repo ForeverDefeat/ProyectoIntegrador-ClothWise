@@ -1,0 +1,37 @@
+package com.clothwise.sistema.venta.aplicacion.ports;
+
+import com.clothwise.sistema.venta.aplicacion.dto.VentaResponseDTO;
+import com.clothwise.sistema.venta.dominio.EstadoVenta;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+/**
+ * Input Port — contrato para consultas de ventas (RF06).
+ */
+public interface IConsultarVentaUseCase {
+
+    /**
+     * Busca una venta por su identificador.
+     * @throws com.omgmoda.shared.dominio.exception.NotFoundException si no existe.
+     */
+    VentaResponseDTO buscarPorId(Long idVenta);
+
+    /** Retorna todas las ventas registradas. */
+    List<VentaResponseDTO> buscarTodas();
+
+    /** Retorna todas las ventas de un usuario. */
+    List<VentaResponseDTO> buscarPorUsuario(Long idUsuario);
+
+    /** Filtra ventas por estado. */
+    List<VentaResponseDTO> buscarPorEstado(EstadoVenta estado);
+
+    /** Filtra ventas de un usuario por estado. */
+    List<VentaResponseDTO> buscarPorUsuarioYEstado(Long idUsuario, EstadoVenta estado);
+
+    /** Retorna ventas dentro de un rango de fechas para reportes. */
+    List<VentaResponseDTO> buscarPorFechas(LocalDateTime desde, LocalDateTime hasta);
+
+    /** Retorna ventas de un usuario dentro de un rango de fechas. */
+    List<VentaResponseDTO> buscarPorUsuarioYFechas(Long idUsuario, LocalDateTime desde, LocalDateTime hasta);
+}
