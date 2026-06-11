@@ -1,0 +1,79 @@
+package com.clothwise.sistema.venta.infraestructura.config;
+
+import com.clothwise.sistema.producto.dominio.ports.IVarianteRepository;
+import com.clothwise.sistema.venta.aplicacion.ports.IAnularVentaUseCase;
+import com.clothwise.sistema.venta.aplicacion.ports.IConsultarVentaUseCase;
+import com.clothwise.sistema.venta.aplicacion.ports.IRegistrarVentaUseCase;
+import com.clothwise.sistema.venta.aplicacion.usecases.AnularVentaUseCaseImpl;
+import com.clothwise.sistema.venta.aplicacion.usecases.ConsultarVentaUseCaseImpl;
+import com.clothwise.sistema.venta.aplicacion.usecases.RegistrarVentaUseCaseImpl;
+import com.clothwise.sistema.venta.dominio.ports.IVentaRepository;
+import com.clothwise.sistema.venta.infraestructura.adapters.JpaVentaAdapter;
+import com.clothwise.sistema.venta.infraestructura.adapters.VentaJpaRepository;
+import com.clothwise.sistema.venta.infraestructura.transaction.TransactionalAnularVentaUseCase;
+import com.clothwise.sistema.venta.infraestructura.transaction.TransactionalRegistrarVentaUseCase;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * Punto de ensamblado del módulo Venta.
+ *
+ * Habilita la gestión de transacciones para garantizar atomicidad
+ * en los casos de uso que operan sobre múltiples agregados:
+ *   - RegistrarVenta: descuenta stock en N variantes y persiste la venta.
+ *   - AnularVenta: revierte stock en N variantes y actualiza la venta.
+ *
+ * Si cualquier operación falla, toda la transacción se revierte (rollback),
+ * garantizando consistencia entre VARIANTE_PRODUCTO, VENTA y DETALLE_VENTA.
+ *
+ * Los casos de uso no usan @Transactional directamente: la anotación
+ * se aplica en los beans de este config para respetar la separación de capas.
+ */
+@Configuration
+@EnableTransactionManagement
+public class VentaModuleConfig {
+
+    /**
+     * Adaptador de salida: implementa IVentaRepository usando Spring Data JPA.
+     */
+    @Bean
+    public IVentaRepository ventaRepository(VentaJpaRepository jpaRepository) {
+        return new JpaVentaAdapter(jpaRepository);
+    }
+
+    /**
+     * Caso de uso: registrar venta completa con descuento de stock.
+     * Transaccional: rollback si falla el descuento de cualquier variante.
+     */
+    @Bean
+    public IRegistrarVentaUseCase registrarVentaUseCase(
+            IVentaRepository ventaRepository,
+            IVarianteRepository varianteRepository) {
+        IRegistrarVentaUseCase useCase =
+                new RegistrarVentaUseCaseImpl(ventaRepository, varianteRepository);
+        return new TransactionalRegistrarVentaUseCase(useCase);
+    }
+
+    /**
+     * Caso de uso: consultar ventas por id, usuario, estado o rango de fechas.
+     */
+    @Bean
+    public IConsultarVentaUseCase consultarVentaUseCase(IVentaRepository ventaRepository) {
+        return new ConsultarVentaUseCaseImpl(ventaRepository);
+    }
+
+    /**
+     * Caso de uso: anular venta y revertir stock.
+     * Transaccional: rollback si falla la reversión de cualquier variante.
+     */
+    @Bean
+    public IAnularVentaUseCase anularVentaUseCase(
+            IVentaRepository ventaRepository,
+            IVarianteRepository varianteRepository) {
+        IAnularVentaUseCase useCase =
+                new AnularVentaUseCaseImpl(ventaRepository, varianteRepository);
+        return new TransactionalAnularVentaUseCase(useCase);
+    }
+}
