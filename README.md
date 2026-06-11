@@ -19,9 +19,9 @@ Hitos alcanzados:
 
 ```text
 .
-|-- sistema-inventario/   # Backend Spring Boot
-|-- omg-moda-front/       # Frontend React + Vite + TypeScript
-`-- README.md             # Documentacion general del proyecto
+|-- BackEnd/         # Backend Spring Boot
+|-- FrontEnd/        # React + Vite + TypeScript
+`-- README.md        # Documentacion general del proyecto
 ```
 
 ## Stack Tecnico
@@ -80,14 +80,14 @@ Frontend:
 Backend:
 
 ```powershell
-cd sistema-inventario
+cd BackEnd\sistema\
 mvnw.cmd spring-boot:run
 ```
 
 Frontend:
 
 ```powershell
-cd omg-moda-front
+cd FrontEnd
 npm install
 npm run dev
 ```
