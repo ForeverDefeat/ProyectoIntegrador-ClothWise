@@ -77,6 +77,15 @@ Frontend:
 
 ## Comandos De Ejecucion
 
+Base de datos
+Crear una base de datos en MySQL:
+
+```
+CREATE DATABASE inventario_omg;
+```
+El backend usará esta base de datos según la configuración definida en application.properties.
+Modificar la linea 20 y 21 de este archivo por sus credenciales en MySQL
+
 Backend:
 
 ```powershell
